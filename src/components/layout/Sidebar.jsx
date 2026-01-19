@@ -7,7 +7,7 @@ function Sidebar() {
       title: '시스템 자동 AI 모델 학습',
       path: '/ai-training',
       icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
         </svg>
       ),
@@ -15,84 +15,75 @@ function Sidebar() {
   ]
 
   return (
-    <aside className="w-72 bg-gradient-to-b from-slate-900 via-slate-900 to-purple-900/50 border-r border-purple-500/20 min-h-full relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-20 -left-10 w-40 h-40 bg-purple-600/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 -right-10 w-32 h-32 bg-cyan-600/10 rounded-full blur-3xl"></div>
-
-      <nav className="relative p-4">
-        <div className="mb-6 px-3">
-          <p className="text-xs font-semibold text-purple-400/60 uppercase tracking-wider">메인 메뉴</p>
+    <aside className="w-60 mac-sidebar border-r border-gray-200/60 min-h-full">
+      <nav className="p-3">
+        <div className="mb-4">
+          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">메뉴</p>
         </div>
-        <ul className="space-y-2">
+        <ul className="space-y-0.5">
+          <li>
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) => `
+                flex items-center px-3 py-1.5 rounded-md text-sm transition-colors
+                ${isActive
+                  ? 'bg-blue-500 text-white'
+                  : 'text-gray-700 hover:bg-gray-200/60'
+                }
+              `}
+            >
+              <svg className="w-4 h-4 mr-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span>대시보드</span>
+            </NavLink>
+          </li>
           {menuItems.map((item) => (
             <li key={item.id}>
               <NavLink
                 to={item.path}
                 className={({ isActive }) => `
-                  group relative flex items-center p-4 rounded-xl transition-all duration-300
+                  flex items-center px-3 py-1.5 rounded-md text-sm transition-colors
                   ${isActive
-                    ? 'bg-gradient-to-r from-violet-600/30 to-purple-600/20 border border-purple-500/40 shadow-lg shadow-purple-500/10'
-                    : 'hover:bg-white/5 border border-transparent hover:border-purple-500/20'
+                    ? 'bg-blue-500 text-white'
+                    : 'text-gray-700 hover:bg-gray-200/60'
                   }
                 `}
               >
-                {({ isActive }) => (
-                  <>
-                    {isActive && (
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-cyan-400 to-purple-500 rounded-r-full"></div>
-                    )}
-                    <div className={`
-                      p-2.5 rounded-lg mr-3 transition-all duration-300
-                      ${isActive
-                        ? 'bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg shadow-purple-500/30'
-                        : 'bg-white/5 group-hover:bg-white/10'
-                      }
-                    `}>
-                      <div className={isActive ? 'text-white' : 'text-purple-300 group-hover:text-purple-200'}>
-                        {item.icon}
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <span className={`
-                        text-sm font-medium transition-colors
-                        ${isActive ? 'text-white' : 'text-gray-300 group-hover:text-white'}
-                      `}>
-                        {item.title}
-                      </span>
-                    </div>
-                    <svg
-                      className={`w-4 h-4 transition-all duration-300 ${isActive ? 'text-purple-300' : 'text-gray-500 group-hover:text-purple-400'}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </>
-                )}
+                <span className="mr-2.5">{item.icon}</span>
+                <span>{item.title}</span>
               </NavLink>
             </li>
           ))}
         </ul>
 
-        {/* Bottom decoration */}
-        <div className="mt-8 mx-3 p-4 rounded-xl bg-gradient-to-br from-purple-900/50 to-slate-900/50 border border-purple-500/20">
-          <div className="flex items-center space-x-3 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+        {/* Status Card */}
+        <div className="mt-6 mx-1 p-3 bg-white/60 rounded-lg border border-gray-200/60">
+          <div className="flex items-center space-x-2 mb-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span className="text-xs font-medium text-gray-700">시스템 정상</span>
+          </div>
+          <div className="space-y-1.5">
+            <div>
+              <div className="flex justify-between text-[10px] text-gray-500 mb-0.5">
+                <span>CPU</span>
+                <span>45%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-1">
+                <div className="bg-blue-500 h-1 rounded-full" style={{width: '45%'}}></div>
+              </div>
             </div>
             <div>
-              <p className="text-xs font-medium text-white">시스템 상태</p>
-              <p className="text-xs text-green-400">정상 작동 중</p>
+              <div className="flex justify-between text-[10px] text-gray-500 mb-0.5">
+                <span>메모리</span>
+                <span>62%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-1">
+                <div className="bg-green-500 h-1 rounded-full" style={{width: '62%'}}></div>
+              </div>
             </div>
           </div>
-          <div className="w-full bg-slate-800 rounded-full h-1.5">
-            <div className="bg-gradient-to-r from-cyan-400 to-purple-500 h-1.5 rounded-full w-3/4"></div>
-          </div>
-          <p className="text-xs text-gray-400 mt-2">GPU 사용률: 75%</p>
         </div>
       </nav>
     </aside>

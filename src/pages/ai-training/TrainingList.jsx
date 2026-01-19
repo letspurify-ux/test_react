@@ -14,10 +14,10 @@ function TrainingList() {
 
   const getStatusBadge = (status) => {
     const styles = {
-      completed: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
-      training: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 animate-pulse',
-      pending: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
-      failed: 'bg-red-500/20 text-red-300 border border-red-500/30',
+      completed: 'bg-green-100 text-green-700',
+      training: 'bg-blue-100 text-blue-700',
+      pending: 'bg-yellow-100 text-yellow-700',
+      failed: 'bg-red-100 text-red-700',
     }
     const labels = {
       completed: '완료',
@@ -26,7 +26,7 @@ function TrainingList() {
       failed: '실패',
     }
     return (
-      <span className={`px-3 py-1 rounded-full text-xs font-medium ${styles[status]}`}>
+      <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${styles[status]}`}>
         {labels[status]}
       </span>
     )
@@ -50,56 +50,48 @@ function TrainingList() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-white flex items-center">
-            <span className="w-2 h-8 bg-gradient-to-b from-cyan-400 to-purple-500 rounded-full mr-3"></span>
-            모델 학습 목록
-          </h2>
-          <p className="text-purple-300/60 text-sm mt-1 ml-5">AI 모델 학습 작업을 관리합니다</p>
-        </div>
-        <div className="flex items-center space-x-3">
+        <h2 className="text-xl font-semibold text-gray-800">모델 학습 목록</h2>
+        <div className="flex items-center space-x-2">
           <button
             onClick={handleViewResults}
             disabled={!selectedId}
-            className={`px-5 py-2.5 rounded-xl transition-all duration-300 flex items-center space-x-2 font-medium ${
-              selectedId
-                ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5'
-                : 'bg-slate-800/50 text-slate-500 border border-slate-700/50 cursor-not-allowed'
+            className={`mac-button px-3 py-1.5 text-sm flex items-center space-x-1.5 ${
+              !selectedId ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
             <span>결과 보기</span>
           </button>
           <button
             onClick={handleRegister}
-            className="neon-button px-5 py-2.5 text-white rounded-xl flex items-center space-x-2 font-medium"
+            className="mac-button-primary px-3 py-1.5 text-sm flex items-center space-x-1.5"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
             </svg>
             <span>학습 등록</span>
           </button>
         </div>
       </div>
 
-      <div className="glass-card rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-purple-500/20">
-          <div className="flex items-center space-x-4">
+      <div className="mac-card overflow-hidden">
+        <div className="p-3 border-b border-gray-200/60 bg-gray-50/50">
+          <div className="flex items-center space-x-3">
             <div className="flex-1 relative">
-              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
                 type="text"
-                placeholder="모델명으로 검색..."
-                className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-purple-300/40 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all"
+                placeholder="검색..."
+                className="mac-input w-full pl-9 pr-3 py-1.5 text-sm"
               />
             </div>
-            <select className="px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-purple-200 focus:border-purple-500/50 outline-none transition-all">
+            <select className="mac-select px-3 py-1.5 text-sm text-gray-600">
               <option value="">전체 상태</option>
               <option value="completed">완료</option>
               <option value="training">학습 중</option>
@@ -112,53 +104,51 @@ function TrainingList() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-purple-500/20">
-                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider w-12">
+              <tr className="border-b border-gray-200/60 bg-gray-50/30">
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
                   선택
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">ID</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">모델명</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">상태</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">생성일</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">정확도</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">모델명</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">상태</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">생성일</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">정확도</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-purple-500/10">
+            <tbody className="divide-y divide-gray-100">
               {trainings.map((training) => (
                 <tr
                   key={training.id}
                   onClick={() => setSelectedId(training.id)}
-                  className={`cursor-pointer transition-all duration-200 ${
+                  className={`cursor-pointer transition-colors ${
                     selectedId === training.id
-                      ? 'bg-purple-500/15 border-l-2 border-l-purple-500'
-                      : 'hover:bg-purple-500/5'
+                      ? 'bg-blue-50'
+                      : 'hover:bg-gray-50'
                   }`}
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-3 w-24">
                     <div className="flex items-center justify-center">
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                        selectedId === training.id
-                          ? 'border-purple-400 bg-purple-500'
-                          : 'border-purple-500/30'
-                      }`}>
-                        {selectedId === training.id && (
-                          <div className="w-2 h-2 rounded-full bg-white"></div>
-                        )}
-                      </div>
+                      <input
+                        type="radio"
+                        name="training"
+                        checked={selectedId === training.id}
+                        onChange={() => setSelectedId(training.id)}
+                        className="w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-500 focus:ring-offset-0"
+                      />
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-cyan-400 font-mono">#{training.id}</span>
+                  <td className="px-4 py-3">
+                    <span className="text-sm text-gray-500">#{training.id}</span>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm font-medium text-white">{training.name}</span>
+                  <td className="px-4 py-3">
+                    <span className="text-sm font-medium text-gray-900">{training.name}</span>
                   </td>
-                  <td className="px-6 py-4">{getStatusBadge(training.status)}</td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-purple-200/70">{training.createdAt}</span>
+                  <td className="px-4 py-3">{getStatusBadge(training.status)}</td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm text-gray-500">{training.createdAt}</span>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className={`text-sm font-medium ${training.accuracy !== '-' ? 'text-emerald-400' : 'text-slate-500'}`}>
+                  <td className="px-4 py-3">
+                    <span className={`text-sm font-medium ${training.accuracy !== '-' ? 'text-green-600' : 'text-gray-400'}`}>
                       {training.accuracy}
                     </span>
                   </td>
@@ -168,25 +158,17 @@ function TrainingList() {
           </table>
         </div>
 
-        <div className="px-6 py-4 border-t border-purple-500/20 flex items-center justify-between">
-          <p className="text-sm text-purple-300/60">
-            총 <span className="text-purple-300 font-medium">{trainings.length}</span>개의 학습 작업
+        <div className="px-4 py-3 border-t border-gray-200/60 bg-gray-50/30 flex items-center justify-between">
+          <p className="text-xs text-gray-500">
+            총 {trainings.length}개 항목
             {selectedId && (
-              <span className="ml-2 text-cyan-400">
-                (#{selectedId} 선택됨)
-              </span>
+              <span className="ml-2 text-blue-600">• #{selectedId} 선택됨</span>
             )}
           </p>
-          <div className="flex items-center space-x-2">
-            <button className="px-4 py-2 bg-slate-800/50 border border-purple-500/20 rounded-lg text-sm text-purple-200 hover:bg-purple-500/10 transition-colors">
-              이전
-            </button>
-            <span className="px-4 py-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-lg text-sm font-medium">
-              1
-            </span>
-            <button className="px-4 py-2 bg-slate-800/50 border border-purple-500/20 rounded-lg text-sm text-purple-200 hover:bg-purple-500/10 transition-colors">
-              다음
-            </button>
+          <div className="flex items-center space-x-1">
+            <button className="mac-button px-2.5 py-1 text-xs">이전</button>
+            <span className="px-2.5 py-1 bg-blue-500 text-white rounded text-xs">1</span>
+            <button className="mac-button px-2.5 py-1 text-xs">다음</button>
           </div>
         </div>
       </div>
