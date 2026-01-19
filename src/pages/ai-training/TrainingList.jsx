@@ -14,10 +14,10 @@ function TrainingList() {
 
   const getStatusBadge = (status) => {
     const styles = {
-      completed: 'bg-green-100 text-green-800',
-      training: 'bg-blue-100 text-blue-800',
-      pending: 'bg-yellow-100 text-yellow-800',
-      failed: 'bg-red-100 text-red-800',
+      completed: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
+      training: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 animate-pulse',
+      pending: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+      failed: 'bg-red-500/20 text-red-300 border border-red-500/30',
     }
     const labels = {
       completed: '완료',
@@ -52,15 +52,21 @@ function TrainingList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-800">모델 학습 목록</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-white flex items-center">
+            <span className="w-2 h-8 bg-gradient-to-b from-cyan-400 to-purple-500 rounded-full mr-3"></span>
+            모델 학습 목록
+          </h2>
+          <p className="text-purple-300/60 text-sm mt-1 ml-5">AI 모델 학습 작업을 관리합니다</p>
+        </div>
         <div className="flex items-center space-x-3">
           <button
             onClick={handleViewResults}
             disabled={!selectedId}
-            className={`px-4 py-2 rounded-lg transition-colors flex items-center space-x-2 ${
+            className={`px-5 py-2.5 rounded-xl transition-all duration-300 flex items-center space-x-2 font-medium ${
               selectedId
-                ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5'
+                : 'bg-slate-800/50 text-slate-500 border border-slate-700/50 cursor-not-allowed'
             }`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +76,7 @@ function TrainingList() {
           </button>
           <button
             onClick={handleRegister}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center space-x-2"
+            className="neon-button px-5 py-2.5 text-white rounded-xl flex items-center space-x-2 font-medium"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -80,17 +86,20 @@ function TrainingList() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-4 border-b border-gray-200 bg-gray-50">
+      <div className="glass-card rounded-2xl overflow-hidden">
+        <div className="p-4 border-b border-purple-500/20">
           <div className="flex items-center space-x-4">
-            <div className="flex-1">
+            <div className="flex-1 relative">
+              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
               <input
                 type="text"
                 placeholder="모델명으로 검색..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-purple-300/40 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all"
               />
             </div>
-            <select className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+            <select className="px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-purple-200 focus:border-purple-500/50 outline-none transition-all">
               <option value="">전체 상태</option>
               <option value="completed">완료</option>
               <option value="training">학습 중</option>
@@ -100,62 +109,84 @@ function TrainingList() {
           </div>
         </div>
 
-        <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-200">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-12">
-                선택
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">모델명</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">상태</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">생성일</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">정확도</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {trainings.map((training) => (
-              <tr
-                key={training.id}
-                onClick={() => setSelectedId(training.id)}
-                className={`cursor-pointer transition-colors ${
-                  selectedId === training.id
-                    ? 'bg-indigo-50 border-l-4 border-indigo-600'
-                    : 'hover:bg-gray-50'
-                }`}
-              >
-                <td className="px-6 py-4">
-                  <input
-                    type="radio"
-                    name="training"
-                    checked={selectedId === training.id}
-                    onChange={() => setSelectedId(training.id)}
-                    className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
-                  />
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-900">#{training.id}</td>
-                <td className="px-6 py-4 text-sm font-medium text-gray-900">{training.name}</td>
-                <td className="px-6 py-4">{getStatusBadge(training.status)}</td>
-                <td className="px-6 py-4 text-sm text-gray-600">{training.createdAt}</td>
-                <td className="px-6 py-4 text-sm text-gray-900">{training.accuracy}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-purple-500/20">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider w-12">
+                  선택
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">ID</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">모델명</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">상태</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">생성일</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-purple-300 uppercase tracking-wider">정확도</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-purple-500/10">
+              {trainings.map((training) => (
+                <tr
+                  key={training.id}
+                  onClick={() => setSelectedId(training.id)}
+                  className={`cursor-pointer transition-all duration-200 ${
+                    selectedId === training.id
+                      ? 'bg-purple-500/15 border-l-2 border-l-purple-500'
+                      : 'hover:bg-purple-500/5'
+                  }`}
+                >
+                  <td className="px-6 py-4">
+                    <div className="flex items-center justify-center">
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                        selectedId === training.id
+                          ? 'border-purple-400 bg-purple-500'
+                          : 'border-purple-500/30'
+                      }`}>
+                        {selectedId === training.id && (
+                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                        )}
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-sm text-cyan-400 font-mono">#{training.id}</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-sm font-medium text-white">{training.name}</span>
+                  </td>
+                  <td className="px-6 py-4">{getStatusBadge(training.status)}</td>
+                  <td className="px-6 py-4">
+                    <span className="text-sm text-purple-200/70">{training.createdAt}</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className={`text-sm font-medium ${training.accuracy !== '-' ? 'text-emerald-400' : 'text-slate-500'}`}>
+                      {training.accuracy}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-        <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
-          <p className="text-sm text-gray-600">
-            총 {trainings.length}개의 학습 작업
+        <div className="px-6 py-4 border-t border-purple-500/20 flex items-center justify-between">
+          <p className="text-sm text-purple-300/60">
+            총 <span className="text-purple-300 font-medium">{trainings.length}</span>개의 학습 작업
             {selectedId && (
-              <span className="ml-2 text-indigo-600 font-medium">
+              <span className="ml-2 text-cyan-400">
                 (#{selectedId} 선택됨)
               </span>
             )}
           </p>
           <div className="flex items-center space-x-2">
-            <button className="px-3 py-1 border border-gray-300 rounded-lg text-sm hover:bg-gray-100 transition-colors">이전</button>
-            <span className="px-3 py-1 bg-indigo-600 text-white rounded-lg text-sm">1</span>
-            <button className="px-3 py-1 border border-gray-300 rounded-lg text-sm hover:bg-gray-100 transition-colors">다음</button>
+            <button className="px-4 py-2 bg-slate-800/50 border border-purple-500/20 rounded-lg text-sm text-purple-200 hover:bg-purple-500/10 transition-colors">
+              이전
+            </button>
+            <span className="px-4 py-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-lg text-sm font-medium">
+              1
+            </span>
+            <button className="px-4 py-2 bg-slate-800/50 border border-purple-500/20 rounded-lg text-sm text-purple-200 hover:bg-purple-500/10 transition-colors">
+              다음
+            </button>
           </div>
         </div>
       </div>
