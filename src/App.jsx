@@ -11,11 +11,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="ai-training">
-            <Route path="list" element={<TrainingList />} />
-            <Route path="register" element={<TrainingRegister />} />
-            <Route path="results" element={<TrainingResults />} />
-          </Route>
+          <Route path="ai-training" element={<TrainingList />} />
+          <Route path="ai-training/register" element={<TrainingRegister />} />
+          <Route path="ai-training/results/:id" element={<TrainingResults />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function TrainingRegister() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     modelName: '',
     modelType: '',
@@ -20,12 +22,33 @@ function TrainingRegister() {
     e.preventDefault()
     alert('모델 학습이 등록되었습니다!')
     console.log('Form submitted:', formData)
+    navigate('/ai-training')
+  }
+
+  const handleCancel = () => {
+    navigate('/ai-training')
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-800">모델 학습 등록</h2>
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => navigate('/ai-training')}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h2 className="text-2xl font-bold text-gray-800">모델 학습 등록</h2>
+        </div>
+        <button
+          onClick={() => navigate('/ai-training')}
+          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+        >
+          목록으로
+        </button>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -148,6 +171,7 @@ function TrainingRegister() {
         <div className="mt-6 pt-6 border-t border-gray-200 flex justify-end space-x-3">
           <button
             type="button"
+            onClick={handleCancel}
             className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
           >
             취소
